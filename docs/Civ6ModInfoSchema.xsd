@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+  <xs:annotation>
+    <xs:documentation>
+      Unofficial schema for Civ 6 .modinfo files.  Created by PlotinusRedux.  Version 0.2  1/5/2016
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:complexType name="ModRelations">
+    <xs:sequence>
+      <xs:element name="Mod">
+        <xs:complexType>
+          <xs:attribute name="id" type="xs:string" use="required"/>
+          <xs:attribute name="title" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ItemList">
+    <xs:sequence>
+      <xs:element name="File" minOccurs="1" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="Priority" type="xs:integer" default="0">
+                <xs:annotation>
+                  <xs:documentation>Signed integer determining the load order of files within the component.  Higher numbers load earlier.</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BaseComponent">
+    <xs:all>
+      <xs:element name="Properties" minOccurs="0">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="RuleSet" type="xs:string" minOccurs="0"/>
+            <xs:element name="LoadOrder" type="xs:integer" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Signed integer determining component load order globally across mods.  Lower numbers load earlier.</xs:documentation>
+              </xs:annotation>
+            </xs:element>              
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Items" type="ItemList" minOccurs="1"/>
+    </xs:all>
+    <xs:attribute name="id" type="xs:string" default=""/>
+  </xs:complexType>
+
+  <xs:complexType name="ContextComponent">
+    <xs:all>
+      <xs:element name="Properties" minOccurs="0">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="RuleSet" type="xs:string" minOccurs="0"/>
+            <xs:element name="LoadOrder" type="xs:integer" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Signed integer determining component load order globally across mods.  Lower numbers load earlier.</xs:documentation>
+              </xs:annotation>
+            </xs:element>            
+            <xs:element name="Context" type="xs:string" minOccurs="1">
+              <xs:annotation>
+                <xs:documentation>UI Context, like "InGame"</xs:documentation>
+              </xs:annotation>
+            </xs:element>          
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Items" type="ItemList" minOccurs="1"/>
+    </xs:all>
+    <xs:attribute name="id" type="xs:string" default=""/>
+  </xs:complexType>
+
+  <xs:complexType name="BaseSetting">
+    <xs:all>    
+      <xs:element name="Properties" minOccurs="0">
+        <xs:complexType>
+          <xs:all>  
+            <xs:element name="LoadOrder" type="xs:integer" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Signed integer determining component load order globally across mods.  Lower numbers load earlier.</xs:documentation>
+              </xs:annotation>
+            </xs:element>              
+          </xs:all>
+        </xs:complexType>
+      </xs:element>    
+      <xs:element name="Items" type="ItemList" minOccurs="1"/>
+    </xs:all>
+    <xs:attribute name="id" type="xs:string" default=""/>
+  </xs:complexType>
+
+  <xs:complexType name="MapSetting">
+    <xs:all>
+      <xs:element name="Properties" minOccurs="0">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="Group" type="xs:string" minOccurs="1"/>
+            <xs:element name="Name" type="xs:string" minOccurs="1"/>
+            <xs:element name="Description" type="xs:string" minOccurs="0"/>
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Items" type="ItemList" minOccurs="1"/>
+    </xs:all>
+    <xs:attribute name="id" type="xs:string" default=""/>
+  </xs:complexType>
+
+  <xs:group name="Translations">
+    <xs:all>
+      <xs:element name="en_US" type="xs:string" minOccurs="0"/>
+      <xs:element name="fr_FR" type="xs:string" minOccurs="0"/>
+      <xs:element name="de_DE" type="xs:string" minOccurs="0"/>
+      <xs:element name="it_IT" type="xs:string" minOccurs="0"/>
+      <xs:element name="es_ES" type="xs:string" minOccurs="0"/>
+      <xs:element name="ja_JP" type="xs:string" minOccurs="0"/>
+      <xs:element name="ru_RU" type="xs:string" minOccurs="0"/>
+      <xs:element name="pl_PL" type="xs:string" minOccurs="0"/>
+      <xs:element name="ko_KR" type="xs:string" minOccurs="0"/>
+      <xs:element name="zh_Hant_HK" type="xs:string" minOccurs="0"/>
+      <xs:element name="zh_Hans_CN" type="xs:string" minOccurs="0"/>
+      <xs:element name="pt_BR" type="xs:string" minOccurs="0"/>
+    </xs:all>
+  </xs:group>
+
+  <xs:element name="Mod">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="Properties" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
+            </xs:sequence>
+            <!--
+            <xs:all>
+              <xs:element name="Name" type="xs:string" minOccurs="1"/>
+              <xs:element name="Teaser" type="xs:string" minOccurs="1"/>
+              <xs:element name="Trusted" type="xs:string" minOccurs="0"/>
+              <xs:element name="ShowInBrowser" type="xs:string" minOccurs="0"/>
+              <xs:element name="DisabledAtStartup" type="xs:int" minOccurs="0"/>
+              <xs:element name="EnabledByDefault" type="xs:int" minOccurs="0"/>
+              <xs:element name="Stability" type="xs:string" minOccurs="0"/>
+              <xs:element name="Description" type="xs:string" minOccurs="0"/>
+              <xs:element name="Authors" type="xs:string" minOccurs="0"/>
+              <xs:element name="SpecialThanks" type="xs:string" minOccurs="0"/>
+            </xs:all>
+             -->
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="References" type="ModRelations" minOccurs="0"/>
+        <xs:element name="Dependencies" type="ModRelations" minOccurs="0"/>
+        <xs:element name="Blocks" type="ModRelations" minOccurs="0"/>
+        <xs:element name="Files" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="File" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Components" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Items loaded when game first starts</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:choice minOccurs="1" maxOccurs="unbounded">
+              <xs:element name="UpdateDatabase" type="BaseComponent" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>Updates to the main game database (DebugGameplay.sqlite).  FileTypes: xml, sql</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="UpdateAudio" type="BaseComponent" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>Adds audio files.  FileTypes: ini, bnk, txt, xml</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="UpdateARX" type="BaseComponent" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>Logitech ARX for displaying game info on a mobile device.  FileTypes: html, etc.?</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="ModArt" type="BaseComponent" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>.dep file that tells which new .artdef files to load.  The .artdef files must have the same name as base artdefs, and aren't included in the .modinfo file at all, just the mod's directory.  FileTypes: dep</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="UserInterface" type="ContextComponent" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>New UI files.  For each XXX.xml, an XXX.lua is implied FileTypes: xml</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="LocalizedText" type="BaseComponent" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>In-game localized text.  FileTypes: xml</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="GameplayScripts" type="BaseComponent" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>Scripts that run in the main Lua context at the start of the game and on reloads.  FileTypes: lua</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="ImportFiles" type="BaseComponent" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>Overrides of files under the main Assets folder.  FileTypes: xml, lua, *?</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Icons" type="BaseComponent" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>XML files to add icons to the game.  FileTypes: xml</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Settings" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Objects loaded on game set up</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:choice minOccurs="1" maxOccurs="unbounded">
+              <xs:element name="Custom" type="BaseSetting" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>Updates to Configuration database (DebugConfiguration.sqlite).  Some people are putting Component elements under Items here--they don't get read into the database.  FileTypes: xml, sql</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Map" type="MapSetting" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>Custom map.  FileTypes: Civ6Map</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="LocalizedText" type="BaseSetting" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>Localized text for game setup screens.  FileTypes: xml</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="WorldBuilder" type="BaseSetting" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>Not sure, but presumably updates to the world builder tables.  FileTypes: xml, sql?</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Icons" type="BaseComponent" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>XML files to add icons to the game that are needed for the game setup screens.  FileTypes: xml</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="ModArt" type="BaseComponent" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>.dep file that tells which new .artdef files to load that are needed for the game setup screens.  The .artdef files must have the same name as base artdefs, and aren't included in the .modinfo file at all, just the mod's directory.  FileTypes: dep</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="LocalizedText" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Optional translations for text in .modinfo itself (mod/Properties and mod/Settings/Map/Properties)</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Text" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:group ref="Translations"/>
+                  <xs:attribute name="id" type="xs:string"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="version" type="xs:int" default="0"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
