@@ -54,6 +54,7 @@
             this.tsContainer = new System.Windows.Forms.ToolStripContainer();
             this.tsMain = new System.Windows.Forms.ToolStrip();
             this.tbNewModSet = new System.Windows.Forms.ToolStripButton();
+            this.tbEditModSet = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbViewMod = new System.Windows.Forms.ToolStripButton();
             this.tbDelete = new System.Windows.Forms.ToolStripButton();
@@ -68,7 +69,6 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tbHelp = new System.Windows.Forms.ToolStripButton();
             this.dlgOpenFolder = new System.Windows.Forms.FolderBrowserDialog();
-            this.tbEditModSet = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.grdMods)).BeginInit();
             this.msMain.SuspendLayout();
             this.tsContainer.ContentPanel.SuspendLayout();
@@ -101,6 +101,7 @@
             this.grdMods.Size = new System.Drawing.Size(1174, 403);
             this.grdMods.TabIndex = 3;
             this.grdMods.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdMods_CellContentClick);
+            this.grdMods.SelectionChanged += new System.EventHandler(this.grdMods_SelectionChanged);
             this.grdMods.DoubleClick += new System.EventHandler(this.grdMods_DoubleClick);
             // 
             // colEnabled
@@ -292,8 +293,8 @@
             // 
             // tsContainer.TopToolStripPanel
             // 
-            this.tsContainer.TopToolStripPanel.Controls.Add(this.tsMain);
             this.tsContainer.TopToolStripPanel.Controls.Add(this.msMain);
+            this.tsContainer.TopToolStripPanel.Controls.Add(this.tsMain);
             // 
             // tsMain
             // 
@@ -331,6 +332,16 @@
             this.tbNewModSet.Text = "New Set";
             this.tbNewModSet.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tbNewModSet.Click += new System.EventHandler(this.mnuNewModSet_Click);
+            // 
+            // tbEditModSet
+            // 
+            this.tbEditModSet.Image = ((System.Drawing.Image)(resources.GetObject("tbEditModSet.Image")));
+            this.tbEditModSet.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbEditModSet.Name = "tbEditModSet";
+            this.tbEditModSet.Size = new System.Drawing.Size(50, 51);
+            this.tbEditModSet.Text = "Edit Set";
+            this.tbEditModSet.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tbEditModSet.Click += new System.EventHandler(this.mnuNewModSet_Click);
             // 
             // toolStripSeparator1
             // 
@@ -446,16 +457,6 @@
             this.dlgOpenFolder.Description = "Select the root Civilization 6 directory";
             this.dlgOpenFolder.RootFolder = System.Environment.SpecialFolder.MyComputer;
             this.dlgOpenFolder.ShowNewFolderButton = false;
-            // 
-            // tbEditModSet
-            // 
-            this.tbEditModSet.Image = ((System.Drawing.Image)(resources.GetObject("tbEditModSet.Image")));
-            this.tbEditModSet.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbEditModSet.Name = "tbEditModSet";
-            this.tbEditModSet.Size = new System.Drawing.Size(50, 51);
-            this.tbEditModSet.Text = "Edit Set";
-            this.tbEditModSet.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tbEditModSet.Click += new System.EventHandler(this.mnuNewModSet_Click);
             // 
             // frmModManager
             // 

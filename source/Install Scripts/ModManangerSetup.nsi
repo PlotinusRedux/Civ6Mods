@@ -1,5 +1,5 @@
 !define PRODUCT_NAME "ModManager"
-!define PRODUCT_VERSION "0.6"
+!define PRODUCT_VERSION "0.7"
 !define PRODUCT_PUBLISHER "PlotinusRedux"
 !define OUT_PATH "..\..\publish"
 !define BIN_PATH "..\..\bin\ModManager\Release\x64"
@@ -9,7 +9,7 @@
 !define KDIFF3_PATH "..\..\Source\3rdParty\KDiff3"
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "${OUT_PATH}\${PRODUCT_NAME}_Setup.exe"
+OutFile "${OUT_PATH}\${PRODUCT_NAME}_Setup_v${PRODUCT_VERSION}.exe"
 InstallDir $PROGRAMFILES64\${PRODUCT_NAME}
 
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\English.nlf"

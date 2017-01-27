@@ -119,7 +119,11 @@ namespace ModManager
         {
             Mod m = null;
             if (sender == tbEditModSet && grdMods.SelectedRows.Count > 0)
+            {
                 m = ModAtRow(grdMods.SelectedRows[0].Index);
+                if (m != null && !m.IsModSet)
+                    m = null;
+            }
 
             if (m == null)
                 m = new Mod(ModPaths.ModsPath, "", "", true);
@@ -152,12 +156,15 @@ namespace ModManager
 
                     grdMods.Sort(colModName, ListSortDirection.Ascending);
 
+                    grdMods.ClearSelection();
                     for(int i = 0; i < grdMods.Rows.Count; i++)
                         if (ModAtRow(i) == m)
                         {
                             grdMods.Rows[i].Selected = true;
+                            grdMods.CurrentCell = grdMods.Rows[i].Cells[0];
                             break;
                         }
+                    CheckBlocked();
                 }
                 finally
                 {
@@ -315,6 +322,12 @@ namespace ModManager
                 e.Handled = true;
                 MessageBox.Show("DLC Path: " + ModPaths.DLCPath);
             }
+        }
+
+        private void grdMods_SelectionChanged(object sender, EventArgs e)
+        {
+            Mod m = SelectedMod;
+            tbEditModSet.Enabled = m != null && m.IsModSet;
         }
     }
 }

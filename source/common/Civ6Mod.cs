@@ -1889,8 +1889,11 @@ namespace Civ6Mod
                 Load();
         }
 
-        public void Reset()
+        public void Reset(bool fForRebuild = false)
         {
+            string strTitle = (Properties != null) ? Title : null;
+            bool fEnabled = (Properties != null) ? Enabled : false;
+
             LocalizedStrings = new ModInfoLocalizedStrings(this);
             Properties = new ModProperties(this);
             Dependencies = new ModDependencies(this);
@@ -1905,15 +1908,25 @@ namespace Civ6Mod
             DepFiles = new Dictionary<string, ModFile>(StringComparer.OrdinalIgnoreCase);
             Files = new ModFileList();
             Files.ParentMod = this;
-            ModSet = new ModSet(this);
+            m_strChecksum = "";
             m_dtModifiedDT = null;
             m_dtSqlModifiedDT = null;
             m_fSqlEnabled = false;
             m_fSqlVisible = false;
-            m_strChecksum = "";
-            m_strFileStub = null;
-            m_strComponentId = null;
-            Version = "";
+
+            if (!fForRebuild)
+            {
+                ModSet = new ModSet(this);
+
+                m_strFileStub = null;
+                m_strComponentId = null;
+                Version = "";
+            }
+            else
+            {
+                Title = strTitle;
+                Enabled = fEnabled;
+            }
         }
 
         static partial void GetCompiledWithSql(ref bool f);
@@ -2075,7 +2088,7 @@ namespace Civ6Mod
         {
             get
             {
-                string strTitle = Properties.GetLocalized(ModPropertyType.Name);
+                string strTitle = Properties?.GetLocalized(ModPropertyType.Name);
 
                 if (!string.IsNullOrEmpty(strTitle))
                 {
@@ -2474,7 +2487,7 @@ namespace Civ6Mod
                 using (Process p = Process.Start(strFile, strParms))
                 {
                     p.WaitForExit();
-                    fConflicts = p.ExitCode != 0 && File.Exists(strOutFileName);
+                    fConflicts = p.ExitCode != 0 || !File.Exists(strOutFileName);
                 }
             }
 
@@ -2530,12 +2543,7 @@ namespace Civ6Mod
            
             try
             {
-                Settings.Elements.Clear();
-                Components.Elements.Clear();
-                string strName = Title;
-                Properties.Items.Clear();
-                LocalizedStrings.Items.Clear();
-                Title = strName;
+                Reset(true);
 
                 var klstMergedImportFiles = new ModMergedFileList(this);
                 var klstMergedDepFiles = new ModMergedFileList(this);
@@ -2861,7 +2869,6 @@ namespace Civ6Mod
                     }
                 }
 
-                Enabled = false;
                 Version = "1";
 
                 Save();
