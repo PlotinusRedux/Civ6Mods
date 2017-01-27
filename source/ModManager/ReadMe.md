@@ -1,4 +1,4 @@
-﻿Civ 6 Mod Manager v0.1 Experimental
+﻿Civ 6 Mod Manager v0.7 Experimental
 ===================================
 
 Overview
@@ -65,6 +65,10 @@ v0.5
 v0.6
 - Added ability to edit Mod Sets.  This will affect saved games using the Mod Set, so it can be used to add or remove mods from a saved game.  Note this could be a bad idea for some mods, however--you wouldn't want to remove a mod that created the civ you are currently playing, for instance.
 
+v0.7
+- Fixed "Edit Set" to only edit Mod Sets (was allowing editing of normal mods).
+- Fixed "Edit Set" to rebuild <Blocks>, etc.
+
 3rd Party Tools/Code/Etc.
 -------------------------
 
@@ -103,8 +107,26 @@ Nullsoft Scriptable Install System (NSIS) (for installation exe)
 License
 -------
 
-Copyright (c) 2016-2017 PlotinusRedux
-Will be uploaded to github under some general open source license.
+MIT License
 
+Copyright (c) 2017 PlotinusRedux
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 
